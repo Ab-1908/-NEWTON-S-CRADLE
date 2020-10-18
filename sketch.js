@@ -1,118 +1,65 @@
-
 const Engine = Matter.Engine;
-const World = Matter.World;
+const World= Matter.World;
 const Bodies = Matter.Bodies;
-const Body = Matter.Body;
 const Constraint = Matter.Constraint;
+const Body = Matter.Body;
+
+var engine, world;
+var roof;
+var chain;
+var bobD = 25;
 
 function setup() {
-	createCanvas(1000, 700);
+  createCanvas(800, 700);
+  
+	  engine = Engine.create();
+    world = engine.world;
 
+    roof = new Roof (350,200,270,20);
+    
+   bobObject1 = new Paper (250,700,25);
+   bobObject2 = new Paper (300,400,25);
+   bobObject3 = new Paper (350,400,25);
+   bobObject4 = new Paper (400,400,25);
+   bobObject5 = new Paper (450,400,25);
 
-	engine = Engine.create();
-	world = engine.world;
-
-	ground = new Ground(500,400,250,20);
-	ground2 = new Ground(900,250,180,20);
-
-	ball = new Ball(100,300,20);
-
-
-	//stage 1
-	box1 = new Box(410,370,30,40);
-	box2 = new Box(440,370,30,40);
-	box3 = new Box(470,370,30,40);
-	box4 = new Box(500,370,30,40);
-	box5 = new Box(530,370,30,40);
-	box6 = new Box(560,370,30,40);
-	box7 = new Box(590,370,30,40);
-
-	//stage 2
-	box8 = new Box(440,330,30,40);
-	box9 = new Box(470,330,30,40);
-	box10 = new Box(500,330,30,40);
-	box11 = new Box(530,330,30,40);
-	box12 = new Box(560,330,30,40);
-
-	//stage 3
-	box13 = new Box(470,290,30,40);
-	box14 = new Box(500,290,30,40);
-	box15 = new Box(530,290,30,40);
-
-	//stage 4
-	box16 = new Box(500,250,30,40);
+   rope1 = new Rope(bobObject1.body,roof.body,bobD*4*(-1));
+   rope2 = new Rope(bobObject2.body,roof.body,bobD*2*(-1));
+   rope3 = new Rope(bobObject3.body,roof.body,bobD*0);
+   rope4 = new Rope(bobObject4.body,roof.body,bobD*2*(1));
+   rope5 = new Rope(bobObject5.body,roof.body,bobD*4*(1));
 	
-	//sectione 2 stage1
-	box17 = new Box(860,220,30,40);
-	box18 = new Box(890,220,30,40);
-	box19 = new Box(920,220,30,40);
-	box20 = new Box(950,220,30,40);
-
-	//stage2
-	box21 = new Box(890,180,30,40);
-	box22 = new Box(920,180,30,40);
-
-	//stage3
-	box23 = new Box(905,140,30,40);
-
-	slingshot = new slingShot(ball.body,{x:100 , y:300});
+  
 }
 
-	
 
 function draw() {
-    Engine.update(engine);
-  background(0);
-
-   ground.display();
-   ground2.display();
   
-   ball.display();
-   box1.display();
-   box2.display();
-   box3.display();
-   box4.display();
-   box5.display();
-   box6.display();
-   box7.display();
+  background(0);
+  Engine.update(engine);
+  
+  roof.display();
 
-   box8.display();
-   box9.display();
-   box10.display();
-   box11.display();
-   box12.display();
-
-   box13.display();
-   box14.display();
-   box15.display();
-   
-   box16.display(); 
-
-   box17.display(); 
-   box18.display(); 
-   box19.display(); 
-   box20.display();
-
-   box21.display(); 
-   box22.display();
-
-   box23.display();
-
-   slingshot.display();    
-}
-
+  bobObject1.display();
+  bobObject2.display();
+  bobObject3.display();
+  bobObject4.display();
+  bobObject5.display();
+  rope1.display();
+  rope2.display();
+  rope3.display();
+  rope4.display();
+  rope5.display();
+  
   drawSprites();
  
+}
 
-  function mouseDragged(){
+function keyPressed(){
+	if(keyCode === UP_ARROW){
 
-	Matter.Body.setPosition(ball.body,{x:mouseX, y:mouseY});
+      Matter.Body.applyForce(bobObject1.body,bobObject1.body.position,{x:-45, y:-45});
+
 	}
-	
-	function mouseReleased(){
-    
-		slingshot.fly()
-		
-		}
-
+}
 
