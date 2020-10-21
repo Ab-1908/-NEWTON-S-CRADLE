@@ -17,7 +17,7 @@ function setup() {
 
     roof = new Roof (350,200,270,20);
     
-   bobObject1 = new Paper (250,700,25);
+   bobObject1 = new Paper (250,400,25);
    bobObject2 = new Paper (300,400,25);
    bobObject3 = new Paper (350,400,25);
    bobObject4 = new Paper (400,400,25);
